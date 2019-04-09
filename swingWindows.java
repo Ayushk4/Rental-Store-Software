@@ -436,6 +436,59 @@ public class swingWindows extends javax.swing.JFrame {
                 formatButtons.add(jRadioButton5);
 
                 jButton1.setText("Add Entry");
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                String ItemType, ItemFormat, ItemName;
+                                int Cost = 0, Rental = 0;
+
+                                boolean warned = false;
+                                ItemName = jTextField1.getText();
+
+                                if (jRadioButton1.isSelected()) {
+                                        ItemType = "CD";
+                                } else {
+                                        ItemType = "DVD";
+                                }
+
+                                if (jRadioButton3.isSelected()) {
+                                        ItemFormat = "VHS";
+                                } else if (jRadioButton4.isSelected()) {
+                                        ItemFormat = "MP4";
+                                } else {
+                                        ItemFormat = "Music";
+                                }
+
+                                try {
+                                        Rental = Integer.valueOf(jTextField2.getText());
+                                } catch (Exception e) {
+                                        Warning warn = new Warning("Rental should be an integer", true);
+                                        warned = true;
+                                }
+
+                                try {
+                                        Cost = Integer.valueOf(jTextField3.getText());
+                                } catch (Exception e) {
+                                        Warning warn = new Warning("Cost should be an integer", true);
+                                        warned = true;
+                                }
+
+                                for (int i = 0; i < inv.itemsList.size(); i++) {
+                                        if (inv.itemsList.get(i).getItemName().toLowerCase()
+                                                        .compareTo(ItemName.toLowerCase()) == 0) {
+                                                Warning warn = new Warning("Another item with same name exists", true);
+                                                warned = true;
+                                                break;
+                                        }
+                                }
+
+                                if (warned == false && Rental != 0 && Cost != 0 && ItemName.length() != 0) {
+                                        inv.addItem(ItemName, Rental, Cost, ItemType, ItemFormat);
+                                }
+
+                                addEntryWindow();
+                        }
+                });
+
                 jButton2.setText("Go Back");
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

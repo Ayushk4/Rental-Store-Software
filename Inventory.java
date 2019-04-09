@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Inventory {
-    private ArrayList<Item> itemsList; // Hold all the assoiated items.
+    public ArrayList<Item> itemsList; // Hold all the assoiated items.
 
     // The constructor class for Inventory
     public Inventory() {
