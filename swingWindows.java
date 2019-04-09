@@ -287,7 +287,7 @@ public class swingWindows extends javax.swing.JFrame {
         }
 
         ////////////////////////////////////////////////////////////
-        ///////// End of main starting window and functions.////////
+        ///////// End of methods starting window and functions.////////
         ////////////////////////////////////////////////////////////
 
         // The code for manager functions window
@@ -372,7 +372,7 @@ public class swingWindows extends javax.swing.JFrame {
 
         }
 
-        // Code for the window lett
+        // Code for the window letting the manager add items
         private void addEntryWindow() {
 
                 javax.swing.JButton jButton1;
@@ -438,6 +438,7 @@ public class swingWindows extends javax.swing.JFrame {
                 jButton1.setText("Add Entry");
                 jButton1.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
+
                                 String ItemType, ItemFormat, ItemName;
                                 int Cost = 0, Rental = 0;
 
@@ -482,14 +483,26 @@ public class swingWindows extends javax.swing.JFrame {
                                 }
 
                                 if (warned == false && Rental != 0 && Cost != 0 && ItemName.length() != 0) {
-                                        inv.addItem(ItemName, Rental, Cost, ItemType, ItemFormat);
+                                        Item registered = inv.addItem(ItemName, Rental, Cost, ItemType, ItemFormat);
+                                        System.out.println("Registered new item " + registered.getItemName()
+                                                        + " of type " + registered.getItemType() + " in format "
+                                                        + registered.getItemFormat());
+                                        System.out.println("Total items in inventory : " + inv.itemsList.size());
                                 }
-
+                                getContentPane().removeAll();
+                                repaint();
                                 addEntryWindow();
                         }
                 });
 
                 jButton2.setText("Go Back");
+                jButton2.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                getContentPane().removeAll();
+                                repaint();
+                                managerWindow();
+                        }
+                });
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -749,3 +762,5 @@ public class swingWindows extends javax.swing.JFrame {
         public password pass;
         public Inventory inv;
 }
+
+// To-Do - lock after 3 attempts, throw message upon wrong password
