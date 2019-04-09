@@ -9,9 +9,12 @@ public class Main {
         // Loads password & Loads from Database
 
         // Threads for Updating database & time to time check for remove items after
-        // year goes to `swingWindows`
+        // year goes to `swingWindows`-> Constructor Function
 
         password p1 = new password();
-        swingWindows frame = new swingWindows(p1);
+        Inventory inv = new Inventory();
+
+        swingWindows frame = new swingWindows(p1, inv);
+
     }
 }
