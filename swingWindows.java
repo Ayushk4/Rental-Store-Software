@@ -325,6 +325,7 @@ public class swingWindows extends javax.swing.JFrame {
                 jButton1.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 managerFunctionalityHandler(evt, jRadioButton1, jRadioButton2);
+
                         }
                 });
 
@@ -359,6 +360,19 @@ public class swingWindows extends javax.swing.JFrame {
                 setVisible(true);
         }
 
+        public void managerFunctionalityHandler(java.awt.event.ActionEvent evt, JRadioButton jRadioButton1,
+                        JRadioButton jRadioButton2) {
+                if (jRadioButton1.isSelected()) {
+                        getContentPane().removeAll();
+                        repaint();
+                        addEntryWindow();
+                } else {
+                        System.out.println("Checking profit loss");
+                }
+
+        }
+
+        // Code for the window lett
         private void addEntryWindow() {
 
                 javax.swing.JButton jButton1;
