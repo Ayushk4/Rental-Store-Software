@@ -39,8 +39,9 @@ public class swingWindows extends javax.swing.JFrame {
                 }
 
                 this.inv = inven;
-                pass = p1; // password
-                initComponents();
+                this.pass = p1; // password
+                this.initComponents();
+
 
         }
 
@@ -365,7 +366,7 @@ public class swingWindows extends javax.swing.JFrame {
                 if (jRadioButton1.isSelected()) {
                         getContentPane().removeAll();
                         repaint();
-                        addEntryWindow();
+                        addItemWindow();
                 } else {
                         System.out.println("Checking profit loss");
                 }
@@ -373,7 +374,7 @@ public class swingWindows extends javax.swing.JFrame {
         }
 
         // Code for the window letting the manager add items
-        private void addEntryWindow() {
+        private void addItemWindow() {
 
                 javax.swing.JButton jButton1;
                 javax.swing.JButton jButton2;
@@ -484,14 +485,18 @@ public class swingWindows extends javax.swing.JFrame {
 
                                 if (warned == false && Rental != 0 && Cost != 0 && ItemName.length() != 0) {
                                         Item registered = inv.addItem(ItemName, Rental, Cost, ItemType, ItemFormat);
-                                        System.out.println("Registered new item " + registered.getItemName()
-                                                        + " of type " + registered.getItemType() + " in format "
-                                                        + registered.getItemFormat());
+                                        String message = ("Registered new item " + registered.getItemName()
+                                        + " of type " + registered.getItemType() + " in format "
+                                        + registered.getItemFormat());
+                                        System.out.println(message);
                                         System.out.println("Total items in inventory : " + inv.itemsList.size());
+
+                                        PlTransaction newTransac = new PlTransaction(message, (-1*Cost));
+                                        Account.plAccount.add(newTransac);
                                 }
                                 getContentPane().removeAll();
                                 repaint();
-                                addEntryWindow();
+                                addItemWindow();
                         }
                 });
 
@@ -676,11 +681,6 @@ public class swingWindows extends javax.swing.JFrame {
 
                 buttonGroup1.add(jRadioButton1);
                 jRadioButton1.setText("Create new member");
-                jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
-                        public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                jRadioButton1ActionPerformed(evt);
-                        }
-                });
 
                 buttonGroup1.add(jRadioButton2);
                 jRadioButton2.setText("Issue item");
@@ -691,7 +691,6 @@ public class swingWindows extends javax.swing.JFrame {
                 buttonGroup1.add(jRadioButton4);
                 jRadioButton4.setText("Cancel membership");
 
-                buttonGroup1.add(jRadioButton5);
                 jRadioButton5.setText("Item lost");
 
                 jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
@@ -699,6 +698,16 @@ public class swingWindows extends javax.swing.JFrame {
 
                 jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
                 jLabel1.setText("Logged in as Storekeeper");
+
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                if(jRadioButton1.isSelected() == true) {
+                                        getContentPane().removeAll();
+                                        repaint();
+                                        newMemberWindow();
+                                }
+                        }
+                });
 
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
@@ -710,7 +719,6 @@ public class swingWindows extends javax.swing.JFrame {
                                                                                 javax.swing.GroupLayout.Alignment.LEADING)
                                                                                 .addComponent(jRadioButton3)
                                                                                 .addComponent(jRadioButton2)
-                                                                                .addComponent(jRadioButton5)
                                                                                 .addComponent(jRadioButton4)
                                                                                 .addComponent(jRadioButton1)))
                                                 .addGroup(layout.createSequentialGroup().addGap(158, 158, 158)
@@ -737,8 +745,6 @@ public class swingWindows extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jRadioButton4)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jRadioButton5)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jButton1)
                                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE,
                                                                 Short.MAX_VALUE)));
@@ -747,20 +753,194 @@ public class swingWindows extends javax.swing.JFrame {
                 setVisible(true);
         }
 
-        // Make this separate for Manager and StoreKeeper.
-        private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        // Create Member Window 
+        
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+        public void newMemberWindow() {
 
-        }
+                javax.swing.ButtonGroup buttonGroup1;
+                javax.swing.JButton jButton1;
+                javax.swing.JButton jButton2;
+                javax.swing.JLabel jLabel1;
+                javax.swing.JLabel jLabel2;
+                javax.swing.JLabel jLabel3;
+                javax.swing.JLabel jLabel4;
+                javax.swing.JLabel jLabel5;
+                javax.swing.JRadioButton jRadioButton1;
+                javax.swing.JRadioButton jRadioButton2;
+                javax.swing.JTextField jTextField1;
+                javax.swing.JTextField jTextField2;
+                javax.swing.JTextField jTextField3;
+        
+                buttonGroup1 = new javax.swing.ButtonGroup();
+                jLabel1 = new javax.swing.JLabel();
+                jLabel2 = new javax.swing.JLabel();
+                jLabel3 = new javax.swing.JLabel();
+                jLabel4 = new javax.swing.JLabel();
+                jLabel5 = new javax.swing.JLabel();
+                jTextField1 = new javax.swing.JTextField();
+                jTextField2 = new javax.swing.JTextField();
+                jTextField3 = new javax.swing.JTextField();
+                jRadioButton1 = new javax.swing.JRadioButton();
+                jRadioButton2 = new javax.swing.JRadioButton();
+                jButton1 = new javax.swing.JButton();
+                jButton2 = new javax.swing.JButton();
+                ButtonGroup b1 = new ButtonGroup();
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        // Make this separate for Manager and StoreKeeper.
+                jLabel1.setText("Add Details for customer!");
+                jLabel2.setText("Name :");
+                jLabel3.setText("Age :");
+                jLabel4.setText("Address");
+                jLabel5.setText("MemberShip :");
 
-        private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-                // TODO add your handling code here:
-        }
+                jRadioButton1.setText("Premium");
+                jRadioButton2.setText("Regular");
+
+                jButton1.setText("Collect Security and Register");
+                jButton1.setToolTipText("");
+
+                jButton2.setText("Back");
+
+                b1.add(jButton1);
+                b1.add(jButton2);
+
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+                                String name = jTextField1.getText();
+                                String address = jTextField3.getText();
+                                int age = 0;
+                                boolean isPremium = false, warned = false;
+
+                                if (jRadioButton1.isSelected()) {
+                                        isPremium = true;
+                                }
+
+                                try {
+                                        age = Integer.valueOf(jTextField2.getText());
+                                } catch (Exception e) {
+                                        Warning warn = new Warning("Age should be an integer", true);
+                                        warned = true;
+                                }
+                                
+
+                                if (name.length() == 0 || address.length() == 0) {
+                                        Warning warn = new Warning("Name and Address should not be empty", true);
+                                        warned = true;
+                                }
+
+                                if (warned == false && age != 0) {
+                                        Member newMeme = new Member(isPremium, name, age, address);
+                                        
+                                        System.out.println("Registered new member " + newMeme.getName());
+                                        MemberList.memberList.add(newMeme);
+                                        System.out.println("Total Members : " + MemberList.memberList.size());
+
+                                        int securityMoney = 1000;
+                                        String typeMember = "Regular";
+                                        if (isPremium == true) {
+                                                securityMoney = 1500;
+                                                typeMember = "Premium";
+                                        }
+
+                                        PlTransaction newTransac = new PlTransaction(("Add " + typeMember + " Member " + newMeme.getName()), securityMoney);
+                                        Account.plAccount.add(newTransac);
+                                        System.out.println(Account.plAccount.size());
+                                } else {
+
+                                }
+                                getContentPane().removeAll();
+                                repaint();
+                                newMemberWindow();
+                        }
+                });
+
+                jButton2.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                getContentPane().removeAll();
+                                repaint();
+                                storeKeeperWindow();
+                        }
+                });
+
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGap(190, 190, 190)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1)
+                                .addComponent(jTextField2)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jRadioButton1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jRadioButton2)
+                                        .addGap(93, 93, 93))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(16, 16, 16)))))
+                        .addContainerGap(39, Short.MAX_VALUE))
+                );
+                layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(27, 27, 27)
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel3))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4))
+                        .addGap(37, 37, 37)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(jRadioButton1)
+                        .addComponent(jRadioButton2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton2))
+                        .addContainerGap())
+                );
+
+                pack();
+                setVisible(true);
+    }// </editor-fold>                        
+
+
+// Handle when no item of the type is available
+// Calls the dropdown as eventhandling
+
 
         public int failedLogin; // 0 for first attempt
         public password pass;
         public Inventory inv;
+        public MemberList memberList;
+        public Account account;
 }
 
 // To-Do - lock after 3 attempts, throw message upon wrong password
