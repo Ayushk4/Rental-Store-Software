@@ -1,5 +1,5 @@
 import javax.swing.*;
-
+import java.util.ArrayList;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -706,6 +706,11 @@ public class swingWindows extends javax.swing.JFrame {
                                         repaint();
                                         newMemberWindow();
                                 }
+                                if(jRadioButton2.isSelected() == true) {
+                                        getContentPane().removeAll();
+                                        repaint();
+                                        issueItemWindow();
+                                }
                         }
                 });
 
@@ -830,6 +835,15 @@ public class swingWindows extends javax.swing.JFrame {
                                         warned = true;
                                 }
 
+                                for (int i = 0; i < inv.itemsList.size(); i++) {
+                                        if (MemberList.memberList.get(i).getName().toLowerCase()
+                                                        .compareTo(name.toLowerCase()) == 0) {
+                                                Warning warn = new Warning("Another enetiy with similar details exists", true);
+                                                warned = true;
+                                                break;
+                                        }
+                                }
+
                                 if (warned == false && age != 0) {
                                         Member newMeme = new Member(isPremium, name, age, address);
                                         
@@ -929,12 +943,253 @@ public class swingWindows extends javax.swing.JFrame {
 
                 pack();
                 setVisible(true);
-    }// </editor-fold>                        
-
+            }// </editor-fold>                        
+ 
 
 // Handle when no item of the type is available
 // Calls the dropdown as eventhandling
 
+        public void issueItemWindow() {
+
+                javax.swing.JButton jButton1;
+                javax.swing.JButton jButton2;
+                javax.swing.JComboBox jComboBox1;
+                javax.swing.JComboBox jComboBox2;
+                javax.swing.JLabel jLabel1;
+                javax.swing.JLabel jLabel2;
+                javax.swing.JLabel jLabel3;
+                javax.swing.JRadioButton jRadioButton3;
+                javax.swing.JRadioButton jRadioButton4;
+                javax.swing.JRadioButton jRadioButton5;
+
+                jLabel1 = new javax.swing.JLabel();
+                jLabel2 = new javax.swing.JLabel();
+                jLabel3 = new javax.swing.JLabel();
+                jRadioButton3 = new javax.swing.JRadioButton();
+                jRadioButton4 = new javax.swing.JRadioButton();
+                jRadioButton5 = new javax.swing.JRadioButton();
+                ButtonGroup b1 = new ButtonGroup();
+                jComboBox1 = new javax.swing.JComboBox();
+                jButton1 = new javax.swing.JButton();
+                jButton2 = new javax.swing.JButton();
+                
+                jLabel2 = new javax.swing.JLabel();
+                jComboBox2 = new javax.swing.JComboBox();
+
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                
+
+                b1.add(jRadioButton3);
+                b1.add(jRadioButton4);
+                b1.add(jRadioButton5);
+                
+                String []memName = new String[MemberList.memberList.size()];
+
+                for (int i = 0; i < MemberList.memberList.size(); i++) {
+                        memName[i] = MemberList.memberList.get(i).getName();
+                }
+
+                System.out.println(memName[1]);
+
+                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(memName));
+                AutoCompletion.enable(jComboBox2);
+
+                int Itemlen = 0, ara =0;
+                
+                for (int i = 0; i < inv.itemsList.size(); i++) {
+                        if (inv.itemsList.get(i).getItemStatus() == false) {
+                                Itemlen += 1;
+                        } 
+                }
+                if(Itemlen == 0) {
+                        Warning warn = new Warning("No items available to issue", true);
+                        // getContentPane().removeAll();
+                        // repaint();
+                        // storeKeeperWindow();
+                        ara =1;
+                }
+                String []itemName = new String[Itemlen];
+
+                System.out.println(Itemlen);
+                int i1=0;
+
+                for (int i = 0; i < inv.itemsList.size(); i++) {
+                        if (inv.itemsList.get(i).getItemStatus() == false) { 
+                                itemName[i1] = inv.itemsList.get(i).getItemName();
+                                i1 += 1;
+                        } 
+                }
+
+                jLabel1.setText("Issue Item");
+                jLabel3.setText("Item Format:");
+                jLabel2.setText("Member Name:");
+
+                jRadioButton3.setText("VHS");
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(itemName));
+
+                AutoCompletion.enable(jComboBox1);
+                // jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+                //         public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //                 issueItemPlayVariable = 1;
+
+                //                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(vhsList));
+                //                 AutoCompletion.enable(jComboBox1);
+                //                 add(jComboBox1);
+                //                 // add(jButton1);
+                //                 // issueItemWindow(true);
+                //         }
+                // });
+        
+                // jRadioButton4.setText("MP4");
+                // jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
+                //         public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //                 issueItemPlayVariable = 1;
+                //                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(mp4List));
+                //                 AutoCompletion.enable(jComboBox1);
+                //                 add(jComboBox1);
+                //                 // add(jButton1);
+                //                 // issueItemWindow(true);
+
+                //         }
+                // });
+        
+                // jRadioButton5.setText("Music");
+                // jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
+                //         public void actionPerformed(java.awt.event.ActionEvent evt) {
+                //                 issueItemPlayVariable = 1;
+                //                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(musicList));
+                //                 AutoCompletion.enable(jComboBox1);
+                //                 add(jComboBox1);
+                //                 // add(jButton1);
+                //                 // issueItemWindow(true);
+
+                //         }
+                // });
+        
+                jButton1.setText("Produce Payment Receipt.");
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                getContentPane().removeAll();
+                                repaint();
+                                System.out.println( jComboBox1.getItemAt(jComboBox1.getSelectedIndex()));
+                                
+                                String memb = jComboBox2.getItemAt(jComboBox2.getSelectedIndex()) + "";
+                                String ite = jComboBox1.getItemAt(jComboBox1.getSelectedIndex()) + "";
+                                int ind = 0;
+                                for (int i = 0; i < inv.itemsList.size(); i++) {
+                                        if(inv.itemsList.get(i).getItemName().toLowerCase().compareTo(ite.toLowerCase()) == 0) {
+                                                ind = i;
+                                                break;
+                                        }
+                                }
+                                
+                                int success = 0;
+                                for (int i = 0; i < MemberList.memberList.size(); i++) {
+                                        if( (MemberList.memberList.get(i).getName().toLowerCase().compareTo(memb.toLowerCase())) == 0) {
+                                                if(MemberList.memberList.get(i).issueItem(inv.itemsList.get(ind)).compareTo("Success") == 0) {
+                                                        System.out.println(inv.issueAnItem(ite, memb));
+                                                }
+                                                break;
+                                        }
+                                }
+                                getContentPane().removeAll();
+                                repaint();
+                                storeKeeperWindow();
+                        }
+                });
+                
+                jButton2.setText("Return to Option Menu");
+                jButton2.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                getContentPane().removeAll();
+                                repaint();
+                                storeKeeperWindow();
+                        }
+                });
+                
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(125, 125, 125)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(jLabel3)
+                                        .addGap(70, 70, 70)
+                                        .addComponent(jRadioButton3)
+                                        .addGap(39, 39, 39)
+                                        .addComponent(jRadioButton4)
+                                        .addGap(36, 36, 36)
+                                        .addComponent(jRadioButton5)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(144, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(226, 226, 226))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jComboBox1, 0, 325, Short.MAX_VALUE)
+                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
+                layout.setVerticalGroup(
+                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jRadioButton3)
+                            .addComponent(jRadioButton4)
+                            .addComponent(jRadioButton5))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(30, 30, 30)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(44, 44, 44)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addGap(7, 7, 7)
+                        .addComponent(jButton2)
+                        .addContainerGap())
+                        );
+                pack();
+                remove(jLabel3);
+                remove(jRadioButton5);
+                remove(jRadioButton4);
+                remove(jRadioButton3);
+                
+                if((inv.itemsList.size()) == 0) {
+                        remove(jButton1);
+                }
+                if(MemberList.memberList.size() == 0) {
+                        remove(jButton1);
+                }
+                if(ara ==1 ) {
+                        remove(jButton1);
+                }
+
+                setVisible(true);
+
+        }
 
         public int failedLogin; // 0 for first attempt
         public password pass;

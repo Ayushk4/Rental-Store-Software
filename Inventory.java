@@ -9,6 +9,8 @@ public class Inventory {
         this.itemsList = new ArrayList<Item>();
         Item item = new Item("Item1", 500, 10000, "CD", "VHS");
         itemsList.add(item);
+        item = new Item("wfeItem21", 500, 10000, "CD", "VHS");
+        itemsList.add(item);
     }
 
     /**
@@ -52,7 +54,7 @@ public class Inventory {
      */
     public boolean issueAnItem(String itemName, String customer) {
         for (int i = 0; i < this.itemsList.size(); i++) {
-            if (itemsList.get(i).getItemName().toLowerCase() == itemName.toLowerCase()) {
+            if (itemsList.get(i).getItemName().toLowerCase().compareTo(itemName.toLowerCase()) == 0) {
                 return (itemsList.get(i).issueItem(customer));
             }
         }
