@@ -11,6 +11,11 @@ public class Inventory {
         itemsList.add(item);
         item = new Item("wfeItem21", 500, 10000, "CD", "VHS");
         itemsList.add(item);
+        item = new Item("wfe312Item21", 500, 10000, "CD", "VHS");
+        itemsList.add(item);
+        item = new Item("wfeItem22311", 500, 10000, "CD", "VHS");
+        itemsList.add(item);
+
     }
 
     /**

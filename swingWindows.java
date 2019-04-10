@@ -360,7 +360,6 @@ public class swingWindows extends javax.swing.JFrame {
                 pack();
                 setVisible(true);
         }
-
         public void managerFunctionalityHandler(java.awt.event.ActionEvent evt, JRadioButton jRadioButton1,
                         JRadioButton jRadioButton2) {
                 if (jRadioButton1.isSelected()) {
@@ -711,6 +710,15 @@ public class swingWindows extends javax.swing.JFrame {
                                         repaint();
                                         issueItemWindow();
                                 }
+                                if(jRadioButton4.isSelected() == true) {
+                                        if(MemberList.memberList.size() == 0) {
+                                                Warning warn = new Warning("No registered customers.", true);
+                                        } else {
+                                                getContentPane().removeAll();
+                                                repaint();
+                                                cancelMembership();
+                                        }
+                                }
                         }
                 });
 
@@ -835,10 +843,9 @@ public class swingWindows extends javax.swing.JFrame {
                                         warned = true;
                                 }
 
-                                for (int i = 0; i < inv.itemsList.size(); i++) {
-                                        if (MemberList.memberList.get(i).getName().toLowerCase()
-                                                        .compareTo(name.toLowerCase()) == 0) {
-                                                Warning warn = new Warning("Another enetiy with similar details exists", true);
+                                for (int i = 0; i < MemberList.memberList.size(); i++) {
+                                        if (MemberList.memberList.get(i).getName().toLowerCase().compareTo(name.toLowerCase()) == 0) {
+                                                Warning warn = new Warning("Another entity with similar details exists", true);
                                                 warned = true;
                                                 break;
                                         }
@@ -949,6 +956,8 @@ public class swingWindows extends javax.swing.JFrame {
 // Handle when no item of the type is available
 // Calls the dropdown as eventhandling
 
+
+
         public void issueItemWindow() {
 
                 javax.swing.JButton jButton1;
@@ -958,147 +967,155 @@ public class swingWindows extends javax.swing.JFrame {
                 javax.swing.JLabel jLabel1;
                 javax.swing.JLabel jLabel2;
                 javax.swing.JLabel jLabel3;
-                javax.swing.JRadioButton jRadioButton3;
-                javax.swing.JRadioButton jRadioButton4;
-                javax.swing.JRadioButton jRadioButton5;
-
+            
                 jLabel1 = new javax.swing.JLabel();
                 jLabel2 = new javax.swing.JLabel();
                 jLabel3 = new javax.swing.JLabel();
-                jRadioButton3 = new javax.swing.JRadioButton();
-                jRadioButton4 = new javax.swing.JRadioButton();
-                jRadioButton5 = new javax.swing.JRadioButton();
-                ButtonGroup b1 = new ButtonGroup();
                 jComboBox1 = new javax.swing.JComboBox();
+                jComboBox2 = new javax.swing.JComboBox();
                 jButton1 = new javax.swing.JButton();
                 jButton2 = new javax.swing.JButton();
-                
-                jLabel2 = new javax.swing.JLabel();
-                jComboBox2 = new javax.swing.JComboBox();
-
+            
                 setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-                
-
-                b1.add(jRadioButton3);
-                b1.add(jRadioButton4);
-                b1.add(jRadioButton5);
-                
+            
+                jLabel1.setText("Issue Item");
+                jLabel2.setText("CustomerName");
+                jLabel3.setText("Item Name");
+            
                 String []memName = new String[MemberList.memberList.size()];
 
                 for (int i = 0; i < MemberList.memberList.size(); i++) {
                         memName[i] = MemberList.memberList.get(i).getName();
                 }
 
-                System.out.println(memName[1]);
+                int item_len = 0;
 
-                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(memName));
-                AutoCompletion.enable(jComboBox2);
 
-                int Itemlen = 0, ara =0;
-                
                 for (int i = 0; i < inv.itemsList.size(); i++) {
                         if (inv.itemsList.get(i).getItemStatus() == false) {
-                                Itemlen += 1;
-                        } 
+                                item_len += 1;
+                        }
                 }
-                if(Itemlen == 0) {
-                        Warning warn = new Warning("No items available to issue", true);
-                        // getContentPane().removeAll();
-                        // repaint();
-                        // storeKeeperWindow();
-                        ara =1;
-                }
-                String []itemName = new String[Itemlen];
 
-                System.out.println(Itemlen);
-                int i1=0;
+                String []itemNames = new String[item_len];
+                int i2 = 0;
 
                 for (int i = 0; i < inv.itemsList.size(); i++) {
-                        if (inv.itemsList.get(i).getItemStatus() == false) { 
-                                itemName[i1] = inv.itemsList.get(i).getItemName();
-                                i1 += 1;
-                        } 
+                        if (inv.itemsList.get(i).getItemStatus() == false) {
+                                itemNames[i2] = inv.itemsList.get(i).getItemName();
+                                i2 += 1;
+                        }
                 }
 
-                jLabel1.setText("Issue Item");
-                jLabel3.setText("Item Format:");
-                jLabel2.setText("Member Name:");
-
-                jRadioButton3.setText("VHS");
-                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(itemName));
-
-                AutoCompletion.enable(jComboBox1);
-                // jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
-                //         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //                 issueItemPlayVariable = 1;
-
-                //                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(vhsList));
-                //                 AutoCompletion.enable(jComboBox1);
-                //                 add(jComboBox1);
-                //                 // add(jButton1);
-                //                 // issueItemWindow(true);
-                //         }
-                // });
-        
-                // jRadioButton4.setText("MP4");
-                // jRadioButton4.addActionListener(new java.awt.event.ActionListener() {
-                //         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //                 issueItemPlayVariable = 1;
-                //                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(mp4List));
-                //                 AutoCompletion.enable(jComboBox1);
-                //                 add(jComboBox1);
-                //                 // add(jButton1);
-                //                 // issueItemWindow(true);
-
-                //         }
-                // });
-        
-                // jRadioButton5.setText("Music");
-                // jRadioButton5.addActionListener(new java.awt.event.ActionListener() {
-                //         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                //                 issueItemPlayVariable = 1;
-                //                 jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(musicList));
-                //                 AutoCompletion.enable(jComboBox1);
-                //                 add(jComboBox1);
-                //                 // add(jButton1);
-                //                 // issueItemWindow(true);
-
-                //         }
-                // });
-        
-                jButton1.setText("Produce Payment Receipt.");
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(memName));
+                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(itemNames));
+                
+                jButton1.setText("Issue Item");
+                jButton1.setToolTipText("");
                 jButton1.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
-                                getContentPane().removeAll();
-                                repaint();
-                                System.out.println( jComboBox1.getItemAt(jComboBox1.getSelectedIndex()));
+                                // Handle if Regular Customer has >2 cds musics or ... issued;
                                 
-                                String memb = jComboBox2.getItemAt(jComboBox2.getSelectedIndex()) + "";
-                                String ite = jComboBox1.getItemAt(jComboBox1.getSelectedIndex()) + "";
-                                int ind = 0;
-                                for (int i = 0; i < inv.itemsList.size(); i++) {
-                                        if(inv.itemsList.get(i).getItemName().toLowerCase().compareTo(ite.toLowerCase()) == 0) {
-                                                ind = i;
+
+                                String mem = (jComboBox1.getItemAt(jComboBox1.getSelectedIndex()) + "");
+                                String item = (jComboBox2.getItemAt(jComboBox2.getSelectedIndex()) + "");
+                                
+                                String format = "";
+                                int ind = -1;
+                                for (int i=0; i < inv.itemsList.size(); i++) {
+                                        if (inv.itemsList.get(i).getItemName().toLowerCase().compareTo(item.toLowerCase()) == 0){
+                                                format = inv.itemsList.get(i).getItemFormat();
+                                                ind = 0;
                                                 break;
                                         }
                                 }
-                                
-                                int success = 0;
-                                for (int i = 0; i < MemberList.memberList.size(); i++) {
-                                        if( (MemberList.memberList.get(i).getName().toLowerCase().compareTo(memb.toLowerCase())) == 0) {
-                                                if(MemberList.memberList.get(i).issueItem(inv.itemsList.get(ind)).compareTo("Success") == 0) {
-                                                        System.out.println(inv.issueAnItem(ite, memb));
+                                if (ind == -1) {
+                                        Warning warn = new Warning("Sorry, item not available!", true);
+                                        getContentPane().removeAll();
+                                        repaint();
+                                        issueItemWindow();
+                                } else {
+                                        int indx = 0;
+                                        for (int i=0; i < MemberList.memberList.size(); i++) {
+                                                if (MemberList.memberList.get(i).getName().toLowerCase().compareTo(mem.toLowerCase()) == 0){
+                                                        int num_music = MemberList.memberList.get(i).getMusic();
+                                                        int num_video = MemberList.memberList.get(i).getVideo();
+
+                                                        boolean isPremium = MemberList.memberList.get(i).getIsPremium();
+
+                                                        if (isPremium == false) {
+                                                                if (format.toLowerCase().compareTo("music") == 0) {
+                                                                        if (num_music < 1) {
+                                                                                // Issue it
+                                                                                Member me= MemberList.memberList.get(i);
+                                                                                me.issueItem(inv.itemsList.get(ind));
+
+                                                                                MemberList.memberList.set(i, me);
+                                                                                // Item it = inv.itemsList.get(ind);
+                                                                                // i.set
+                                                                                System.out.println(inv.issueAnItem(item,mem));
+                                                                                Warning warn = new Warning("Item has been issued. Rental Price: " + inv.itemsList.get(ind).getRentalPrice(), false);
+
+                                                                        } else{
+                                                                                Warning warn = new Warning("The customer has booked maximum Music CDs", true);
+                                                                        }
+                                                                } else {
+                                                                        if (num_video < 2) {
+                                                                                Member me= MemberList.memberList.get(i);
+                                                                                me.issueItem(inv.itemsList.get(ind));
+
+                                                                                MemberList.memberList.set(i, me);
+                                                                                // Item i = inv.itemsList.get(ind);
+                                                                                // i.set
+                                                                                System.out.println(inv.issueAnItem(item,mem));
+                                                                                Warning warn = new Warning("Item has been issued. Rental Price: " + inv.itemsList.get(ind).getRentalPrice(), false);
+                                                                        } else{
+                                                                                Warning warn = new Warning("The customer has booked maximum Video CDs", true);
+                                                                        }
+                                                                }
+                                                                indx = i; 
+                                                        } else {
+                                                                if (format.toLowerCase().compareTo("music") == 0) {
+                                                                        if (num_music < 2) {
+                                                                                Member me = MemberList.memberList.get(i);
+                                                                                me.issueItem(inv.itemsList.get(ind));
+
+                                                                                MemberList.memberList.set(i, me);
+                                                                                // Item i = inv.itemsList.get(ind);
+                                                                                // i.set
+                                                                                System.out.println(inv.issueAnItem(item,mem));
+                                                                                Warning warn = new Warning("Item has been issued. Rental Price: " + inv.itemsList.get(ind).getRentalPrice(), false);
+                                                                        } else{
+                                                                                Warning warn = new Warning("The customer has booked maximum Music CDs", true);
+                                                                        }
+                                                                } else {
+                                                                        if (num_video < 5) {
+                                                                                Member me = MemberList.memberList.get(i);
+                                                                                me.issueItem(inv.itemsList.get(ind));
+
+                                                                                MemberList.memberList.set(i, me);
+                                                                                // Item i = inv.itemsList.get(ind);
+                                                                                // i.set
+                                                                                System.out.println(inv.issueAnItem(item,mem));
+                                                                                Warning warn = new Warning("Item has been issued. Rental Price: " + inv.itemsList.get(ind).getRentalPrice(), false);
+                                                                        } else{
+                                                                                Warning warn = new Warning("The customer has booked maximum Video CDs", true);
+                                                                        }
+                                                                }
+                                                        }
+                                                        break;
                                                 }
-                                                break;
                                         }
-                                }
+                                System.out.println(Records.records.size());
                                 getContentPane().removeAll();
                                 repaint();
-                                storeKeeperWindow();
+                                issueItemWindow();
+                                }
+                                
                         }
                 });
-                
-                jButton2.setText("Return to Option Menu");
+
+                jButton2.setText("Go Back");
                 jButton2.addActionListener(new java.awt.event.ActionListener() {
                         public void actionPerformed(java.awt.event.ActionEvent evt) {
                                 getContentPane().removeAll();
@@ -1106,89 +1123,178 @@ public class swingWindows extends javax.swing.JFrame {
                                 storeKeeperWindow();
                         }
                 });
-                
+
                 javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
                 getContentPane().setLayout(layout);
                 layout.setHorizontalGroup(
-                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(125, 125, 125)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel3)
-                                        .addGap(70, 70, 70)
-                                        .addComponent(jRadioButton3)
-                                        .addGap(39, 39, 39)
-                                        .addComponent(jRadioButton4)
-                                        .addGap(36, 36, 36)
-                                        .addComponent(jRadioButton5)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(144, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(226, 226, 226))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel2)
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jComboBox1, 0, 325, Short.MAX_VALUE)
-                            .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                );
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(36, 36, 36)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel2)
+                                        .addComponent(jLabel3))
+                                    .addGap(83, 83, 83)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jComboBox1, 0, 248, Short.MAX_VALUE)
+                                        .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(171, 171, 171)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addContainerGap(195, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(249, 249, 249))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jButton2)
+                                    .addContainerGap())))
+                    );
                 layout.setVerticalGroup(
-                    layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jRadioButton3)
-                            .addComponent(jRadioButton4)
-                            .addComponent(jRadioButton5))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(25, 25, 25)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(44, 44, 44)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(7, 7, 7)
-                        .addComponent(jButton2)
-                        .addContainerGap())
-                        );
+                        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(24, 24, 24)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(73, 73, 73)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                            .addComponent(jButton1)
+                            .addGap(25, 25, 25)
+                            .addComponent(jButton2)
+                            .addContainerGap())
+                    );
+            
                 pack();
-                remove(jLabel3);
-                remove(jRadioButton5);
-                remove(jRadioButton4);
-                remove(jRadioButton3);
-                
-                if((inv.itemsList.size()) == 0) {
-                        remove(jButton1);
-                }
-                if(MemberList.memberList.size() == 0) {
-                        remove(jButton1);
-                }
-                if(ara ==1 ) {
-                        remove(jButton1);
-                }
 
                 setVisible(true);
 
+        }
+
+
+
+
+        
+        public void cancelMembership() {
+                javax.swing.JButton jButton1;
+                javax.swing.JButton jButton2;
+                javax.swing.JComboBox jComboBox1;
+                javax.swing.JLabel jLabel1;
+        
+                jLabel1 = new javax.swing.JLabel();
+                jComboBox1 = new javax.swing.JComboBox();
+                jButton1 = new javax.swing.JButton();
+                jButton2 = new javax.swing.JButton();
+
+                setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+                jLabel1.setText("Cancel Membership");
+
+                String []memName = new String[MemberList.memberList.size()];
+
+                for (int i = 0; i < MemberList.memberList.size(); i++) {
+                        memName[i] = MemberList.memberList.get(i).getName();
+                }
+
+                jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(memName));
+
+                jButton1.setText("Go Back");
+                jButton1.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                getContentPane().removeAll();
+                                repaint();
+                                storeKeeperWindow();
+                        }
+                });
+                jButton2.setText("Generate Amount & Cancel MemberShip");
+                jButton2.addActionListener(new java.awt.event.ActionListener() {
+                        public void actionPerformed(java.awt.event.ActionEvent evt) {
+                                String mem = (jComboBox1.getItemAt(jComboBox1.getSelectedIndex()) + "");
+                                if (mem.length() == 0) {
+                                        getContentPane().removeAll();
+                                        repaint();
+                                        storeKeeperWindow();
+                                }
+                                for (int i=0; i < MemberList.memberList.size(); i++) {
+                                        if(MemberList.memberList.get(i).getName().toLowerCase().compareTo(mem.toLowerCase()) == 0){
+                                                if (MemberList.memberList.get(i).getMusic() != 0 || MemberList.memberList.get(i).getVideo() != 0) {
+                                                        Warning warn = new Warning("The customer needs to return items before removal", true);
+                                                } else {
+                                                        boolean isPrem = MemberList.memberList.get(i).getIsPremium();
+                                                        int money = 1000;
+                                                        if (isPrem == true) {
+                                                                money = 1500;
+                                                        }
+                                                        PlTransaction pl = new PlTransaction("Cancelling " + MemberList.memberList.get(i).getName() + "'s membership" ,-1500);
+                                                        Account.plAccount.add(pl);
+                                                        MemberList.memberList.remove(i);
+                                                }
+                                                break;
+                                        }
+                                }
+
+                                getContentPane().removeAll();
+                                repaint();
+                                Warning warn = new Warning("Cancelled membership for " + mem, false);
+                                storeKeeperWindow();
+                        }
+                });
+
+                javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+                getContentPane().setLayout(layout);
+                layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                        .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(83, 83, 83)
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(83, 83, 83)
+                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 66, Short.MAX_VALUE)))
+                        .addContainerGap())
+                .addGroup(layout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(jLabel1)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                );
+                layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1)
+                        .addGap(38, 38, 38)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jButton1)
+                        .addContainerGap())
+                );
+
+                if(MemberList.memberList.size() == 0) {
+
+                        System.out.println(MemberList.memberList.size() );
+                        getContentPane().removeAll();
+                        repaint();
+                        storeKeeperWindow();
+                }
+
+                pack();
+                setVisible(true);
         }
 
         public int failedLogin; // 0 for first attempt
