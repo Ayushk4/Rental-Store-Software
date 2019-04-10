@@ -101,6 +101,13 @@ public class Item {
     }
 
     /**
+     * @return the last activity date attribute
+     */
+    public Date getDateOfLastActivity() {
+        return dateOfLastActivity;
+    }
+
+    /**
      * @return the costPrice attribute
      */
     public int getCostPrice() {

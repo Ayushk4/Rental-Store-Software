@@ -34,7 +34,10 @@ public class Transaction
         this.customer_name=cust_name;
         this.date=date;
     }
-    
+    public int getID()
+    {
+        return id;
+    }
     public String getCd_Name()
     {
         return cd_name;
