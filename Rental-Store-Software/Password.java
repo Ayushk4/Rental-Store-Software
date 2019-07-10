@@ -1,15 +1,15 @@
 import java.io.*;
 
-public class password {
+public class Password {
     public String managerUsername;
     public String managerPassword;
     public String storeKeeperUsername;
     public String storeKeeperPassword;
 
-    public password() {
+    public Password() {
         managerUsername = new String("man");
         managerPassword = new String("itsme");
-        storeKeeperUsername = new String("keeper");
-        storeKeeperPassword = new String("letmelogin");
+        storeKeeperUsername = new String("k");
+        storeKeeperPassword = new String("l");
     }
 }
