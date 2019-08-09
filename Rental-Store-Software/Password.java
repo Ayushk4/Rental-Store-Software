@@ -7,9 +7,9 @@ public class Password {
     public String storeKeeperPassword;
 
     public Password() {
-        managerUsername = new String("man");
-        managerPassword = new String("itsme");
-        storeKeeperUsername = new String("k");
-        storeKeeperPassword = new String("l");
+        managerUsername = new String("manager123");
+        managerPassword = new String("secret123");
+        storeKeeperUsername = new String("clerk");
+        storeKeeperPassword = new String("password");
     }
 }

@@ -1,13 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author bedant
- */
+//class containing the id of current transaction 
 public class transactionIdGenerator 
 {
     static
@@ -15,6 +6,6 @@ public class transactionIdGenerator
         transactionID=1;
         plID=1;
     }
-    public static int transactionID;
-    public static int plID;
+    public static int transactionID;//ID of transaction in Records.records
+    public static int plID;//ID of transaction in Account.plAccount
 }

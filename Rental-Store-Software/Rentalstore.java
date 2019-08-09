@@ -1,44 +1,31 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author bedant
- */
+//import suitable libraries of sql and java date
 import java.sql.*;
 import java.util.Date;
 public class Rentalstore 
 {
+    //Establish connection between database and java programme
     public Connection makeConnection()
     {        
         try
         {
             String host = "jdbc:mysql://localhost:3306/newdb";
-            String uName = "newuser";
-            String uPass= "password";
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = DriverManager.getConnection( host, uName, uPass );
-                //Class.forName("com.mysql.jdbc.Driver");// or may be it is "org.apache.derby.jdbc.EmbeddedDriver"? Not sure. Check the correct name and put it here.
-                return con;
-           
-    //handle exception
-            
-            
-            
+            String uName = "newuser";//mysql username
+            String uPass = "password";//password for the username
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection( host, uName, uPass );
+            return con;            
         }
         catch ( Exception err ) 
         {
             System.out.println( err.getMessage( ) );
-            //System.out.println("catch");
             return null;
         }   
     }
     
+    //Creating the required tables in the database automatically if it does not exists
     public void createTables(Connection conn) throws Exception
     {
+        //sql query for creating members table i.e membertab
         String sqlCreate = "CREATE TABLE IF NOT EXISTS membertab"
             + "  (NAME          VARCHAR(40),"
             + "   ADDRESS       VARCHAR(40),"
@@ -47,10 +34,9 @@ public class Rentalstore
             + "   MUSIC           INTEGER,"
             + "   VIDEO     INTEGER)";
         Statement stmt = conn.createStatement();
-        //System.out.println("bef");
         stmt.execute(sqlCreate);
-        //System.out.println("aft");
             
+        //sql query for creating items table i.e itemtab    
         sqlCreate = "CREATE TABLE IF NOT EXISTS itemtab"
             + "  (NAME          VARCHAR(40),"
             + "   DOP       DATE,"
@@ -62,10 +48,9 @@ public class Rentalstore
             + "   FORMAT     VARCHAR(40),"
             +"     STATUS    BOOLEAN);";
         stmt = conn.createStatement();
-        //System.out.println("bef");
         stmt.execute(sqlCreate);
-        //System.out.println("aft");
-        
+
+        //sql query for creating profit loss transactions table i.e placcounttab        
         sqlCreate = "CREATE TABLE IF NOT EXISTS placcounttab"
             + "  (ID          INTEGER,"
             + "   ACTIVITY       VARCHAR(400),"
@@ -74,6 +59,7 @@ public class Rentalstore
         stmt = conn.createStatement();
         stmt.execute(sqlCreate);
         
+        //sql query for creating all transactions table i.e recordstab
         sqlCreate = "CREATE TABLE IF NOT EXISTS recordstab"
             + "  (ID          INTEGER,"
             + "   CUSTOMER       VARCHAR(40),"
@@ -81,22 +67,22 @@ public class Rentalstore
             + "   DATE           DATE)";
         stmt = conn.createStatement();
         stmt.execute(sqlCreate);
-        //System.out.println("done");
     }
     
+    //fill the corresponding lists of bjects from the database
     public void populateLists(Connection con,Inventory inventoryobj) throws Exception
     {
         String query;
         ResultSet rs;
         Statement stmt=con.createStatement();
 
+        //filling list of members from table membertab
         query="SELECT * FROM membertab";
-        System.out.println("done1");
+        System.out.println("members filled!!");
         rs=stmt.executeQuery(query);
-//error
         if(!rs.next())
         {
-            //no book found dialog
+            
         }
         else
         {
@@ -105,7 +91,7 @@ public class Rentalstore
                 String name=rs.getString("NAME");
                 String address=rs.getString("ADDRESS");
                 int age=rs.getInt("AGE");
-                boolean isPremium=rs.getBoolean("ISPRIMIUM");
+                boolean isPremium=rs.getBoolean("ISPREMIUM");
                 int music_cds_issued=rs.getInt("MUSIC");
                 int video_cds_issued=rs.getInt("VIDEO");
                 Member m=new Member(isPremium,name,age,address,video_cds_issued,music_cds_issued);
@@ -114,13 +100,13 @@ public class Rentalstore
             while(rs.next());
         }
         
-        
+        //filling list of items from table itemtab
         query="SELECT * FROM itemtab";
         rs=stmt.executeQuery(query);
-        System.out.println("done2");
+        System.out.println("items filled!!");
         if(!rs.next())
         {
-            //no book found dialog
+            
         }
         else
         {
@@ -142,20 +128,19 @@ public class Rentalstore
             while(rs.next());
         }
         
+        //filling list of profit loss transactions from table placcounttab
         query="SELECT * FROM placcounttab";
         rs=stmt.executeQuery(query);
-        System.out.println("done3");
+        System.out.println("placcount filled");
         
         if(!rs.next())
         {
              
-            //no book found dialog
         }
         else
         {
             do
             {
-                //System.out.println("indo");
                 int ID=rs.getInt("ID");
                 String activity=rs.getString("ACTIVITY");
                 int amount=rs.getInt("AMOUNT");
@@ -167,6 +152,7 @@ public class Rentalstore
             while(rs.next());
         }  
         
+        //filling list of records of transactions from table recordstab
         query="SELECT * FROM recordstab";
         System.out.println("done4--");
         rs=stmt.executeQuery(query);
@@ -174,7 +160,7 @@ public class Rentalstore
         
         if(!rs.next())
         {
-            //no book found dialog
+            
         }
         else
         {
@@ -192,50 +178,50 @@ public class Rentalstore
         }  
     }
      
+    //updating tables of database from the corresponding list
     public void update_db(Connection con,Inventory inventoryobj ) throws Exception
     {
+        //deleting the table of members
         String template="DELETE FROM membertab";
         PreparedStatement stmts = con.prepareStatement(template);
         stmts.executeUpdate();
         
+        //deleting the table of items
         template="DELETE FROM itemtab";
         stmts = con.prepareStatement(template);
         stmts.executeUpdate();
         
+        //deleting the table of profit loss transactions
         template="DELETE FROM placcounttab";
         stmts = con.prepareStatement(template);
         stmts.executeUpdate();
         
+        //deleting the table of all transactions 
         template="DELETE FROM recordstab";
         stmts = con.prepareStatement(template);
         stmts.executeUpdate();
         
+        //inserting the objects from list of members into database table of members i.e membertab 
         for(int i=0;i<MemberList.memberList.size();i++)
         {
             template = "INSERT INTO membertab (NAME,ADDRESS,AGE,ISPREMIUM,MUSIC,VIDEO) values (?,?,?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(template);
-
             stmt.setString(1,MemberList.memberList.get(i).getName());
             stmt.setString(2,MemberList.memberList.get(i).getAddress());
             stmt.setInt(3,MemberList.memberList.get(i).getAge());
             stmt.setBoolean(4,MemberList.memberList.get(i).getIsPremium());
             stmt.setInt(5,MemberList.memberList.get(i).getMusic());
             stmt.setInt(6,MemberList.memberList.get(i).getVideo());
-            
-            
             stmt.executeUpdate();
         }
         
+        //inserting the objects from list of items into database table of items i.e itemtab 
         for(int i=0;i<inventoryobj.itemsList.size();i++)
         {
             template = "INSERT INTO itemtab (NAME,DOP,DOLA,RENTAL,COST,ISSUEDONCE,TYPE,FORMAT,STATUS) values (?,?,?,?,?,?,?,?,?)";
-            PreparedStatement stmt = con.prepareStatement(template);
-//java.sql.Date sqlDate = new java.sql.Date(now.getTime());
-
-            
+            PreparedStatement stmt = con.prepareStatement(template);     
             java.sql.Date sqlDateOfPurchase = new java.sql.Date(inventoryobj.itemsList.get(i).getDateOfPurchase().getTime());
             java.sql.Date sqlDateOfLastActivity = new java.sql.Date(inventoryobj.itemsList.get(i).getDateOfLastActivity().getTime());
-
             stmt.setString(1,inventoryobj.itemsList.get(i).getItemName());
             stmt.setDate(2,sqlDateOfPurchase);
             stmt.setDate(3,sqlDateOfLastActivity);
@@ -245,36 +231,32 @@ public class Rentalstore
             stmt.setString(7,inventoryobj.itemsList.get(i).getItemType());
             stmt.setString(8,inventoryobj.itemsList.get(i).getItemFormat());
             stmt.setBoolean(9,inventoryobj.itemsList.get(i).getItemStatus());
-            
-            
             stmt.executeUpdate();
         }
         
+        //inserting the objects from list of profit/loss transaction into database table of profit/loss account i.e placcounttab
         for(int i=0;i<Account.plAccount.size();i++)
         {
-            template = "INSERT INTO placcounttab (ID,ACTIVITY,AMOUNT) values (?,?,?)";
+            template = "INSERT INTO placcounttab (ID,ACTIVITY,AMOUNT,DATE) values (?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(template);
-
+            java.sql.Date sqlDate = new java.sql.Date(Account.plAccount.get(i).getDate().getTime());
             stmt.setInt(1,Account.plAccount.get(i).getID());
-            stmt.setString(1,Account.plAccount.get(i).getActivity());
-            stmt.setInt(1,Account.plAccount.get(i).getAmount());
-            
+            stmt.setString(2,Account.plAccount.get(i).getActivity());
+            stmt.setInt(3,Account.plAccount.get(i).getAmount());   
+            stmt.setDate(4,sqlDate);   
             stmt.executeUpdate();
         }
         
+        //inserting the objects from list of record of transactions into database table of transactions i.e recordstab 
         for(int i=0;i<Records.records.size();i++)
         {
             template = "INSERT INTO recordstab (ID,CUSTOMER,ITEM,DATE) values (?,?,?,?)";
             PreparedStatement stmt = con.prepareStatement(template);
-
-            java.sql.Date sqlDate = new java.sql.Date(Records.records.get(i).getDate().getTime());
-            
+            java.sql.Date sqlDate = new java.sql.Date(Records.records.get(i).getDate().getTime());            
             stmt.setInt(1,Records.records.get(i).getID()); 
             stmt.setString(2,Records.records.get(i).getCustomer());
             stmt.setString(3,Records.records.get(i).getCd_Name());
             stmt.setDate(4,sqlDate);
-            
-            
             stmt.executeUpdate();
         }
     }

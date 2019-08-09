@@ -7,13 +7,14 @@ public class Inventory {
     // The constructor class for Inventory
     public Inventory() {
         this.itemsList = new ArrayList<Item>();
+//        For testing;
         Item item = new Item("Item1", 500, 10000, "CD", "VHS");
         itemsList.add(item);
-        item = new Item("wfeItem21", 500, 10000, "CD", "VHS");
+        item = new Item("Item2", 500, 10000, "CD", "VHS");
         itemsList.add(item);
-        item = new Item("wfe312Item21", 500, 10000, "CD", "VHS");
+        item = new Item("Item3", 500, 10000, "CD", "VHS");
         itemsList.add(item);
-        item = new Item("wfeItem22311", 500, 10000, "CD", "VHS");
+        item = new Item("Item4", 500, 10000, "CD", "VHS");
         itemsList.add(item);
 
     }

@@ -7,13 +7,13 @@ public class Item {
     private String itemName; // The name of the CD or DVD.
     private Date dateOfPurchase; // Initialized to the date item was added to inventory.
     private boolean pastOneYear; // Variable to tell if the data object has passed one year.
-    private Date dateOfLastActivity; // Stores the date of last activty of the item
+    public Date dateOfLastActivity; // Stores the date of last activty of the item
     private int rentalPrice; // The Rental Price for this item for each day.
     private int costPrice; // The Rental Price for
     private boolean issuedOnce; // This tells whether the item has been issued once or not.
     private String itemType; // CD or DVD
     private String itemFormat; // VHS or MP4 or Music
-    private boolean itemStatus; // Tells the status of CD. true for issued, else false.
+    public boolean itemStatus; // Tells the status of CD. true for issued, else false.
     private String customer; // Tells the customer that currently posses the item.
 
     // The constructor for class Item

@@ -1,22 +1,14 @@
-
+//import library of java date
 import java.util.Date;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author bedant
- */
 public class Transaction 
 {
-    private int id;
-    private String customer_name;
-    private String cd_name;
-    private Date date;
+    private int id;//Transaction ID
+    private String customer_name;//nane of customer involved in transaction
+    private String cd_name;//nane of CD involved in transaction
+    private Date date;//date of transaction
+
+    //Consructor invoked when a new transaction takes place
     public Transaction(String cust_name,String cd_name)
     {
         this.id=transactionIdGenerator.transactionID;
@@ -26,6 +18,7 @@ public class Transaction
         this.date=new Date();
     }
     
+    //Consructor invoked when a transaction is loaded from database
     public Transaction(int ID,String cust_name,String cd_name,Date date)
     {
         this.id=ID;
@@ -34,6 +27,7 @@ public class Transaction
         this.customer_name=cust_name;
         this.date=date;
     }
+    
     public int getID()
     {
         return id;
